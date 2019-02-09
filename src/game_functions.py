@@ -11,21 +11,31 @@ def check_events(ship):
                 sys.exit()
 
             elif event.type == pygame.KEYDOWN:
-
-                if event.key == pygame.K_RIGHT:
-                    #move the ship to the right
-                     ship.moving_right = True
-                if event.key == pygame.K_LEFT:
-                    #move the ship to the left
-                      ship.moving_left = True
+                check_keydown_events(event,ship)
 
             elif event.type == pygame.KEYUP:
-                #Stops movement
-                if event.key == pygame.K_RIGHT:
-                    ship.moving_right = False
+                check_keyup_events(event,ship)
 
-                if event.key == pygame.K_LEFT:
-                    ship.moving_left = False
+
+def check_keydown_events(event,ship):
+    #respond to keypress
+        if event.key == pygame.K_RIGHT:
+        #move the ship to the right
+        ship.moving_right = True
+
+        if event.key == pygame.K_LEFT:
+        #move the ship to the left
+        ship.moving_left = True
+
+def check_keyup_events(event,ship):
+    #respond to release
+        #Stops movement
+        if event.key == pygame.K_RIGHT:
+        ship.moving_right = False
+
+        if event.key == pygame.K_LEFT:
+        ship.moving_left = False
+
 
 
 def update_screen(ai_settings, screen, ship, enemy):
