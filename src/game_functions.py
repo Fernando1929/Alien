@@ -1,8 +1,6 @@
 import sys 
 import pygame
 
- 
-
 def check_events(ship):
     #add the ai_settings to set the boundas of the movement
       #watch for mouse and keyboard events.
@@ -19,21 +17,21 @@ def check_events(ship):
 
 def check_keydown_events(event,ship):
     #respond to keypress
-        if event.key == pygame.K_RIGHT:
-        #move the ship to the right
+    if event.key == pygame.K_RIGHT:
+    #move the ship to the right
         ship.moving_right = True
 
-        if event.key == pygame.K_LEFT:
-        #move the ship to the left
+    if event.key == pygame.K_LEFT:
+    #move the ship to the left
         ship.moving_left = True
 
 def check_keyup_events(event,ship):
     #respond to release
-        #Stops movement
-        if event.key == pygame.K_RIGHT:
+    #Stops movement
+    if event.key == pygame.K_RIGHT:
         ship.moving_right = False
 
-        if event.key == pygame.K_LEFT:
+    if event.key == pygame.K_LEFT:
         ship.moving_left = False
 
 
