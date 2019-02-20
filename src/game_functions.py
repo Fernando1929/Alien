@@ -24,6 +24,14 @@ def check_keydown_events(event,ship):
     if event.key == pygame.K_LEFT:
     #move the ship to the left
         ship.moving_left = True
+    
+    if event.key == pygame.K_UP:
+    #move the ship up
+        ship.moving_up = True
+    
+    if event.key == pygame.K_DOWN:
+    # move the ship down
+        ship.moving_down = True
 
 def check_keyup_events(event,ship):
     #respond to release
@@ -33,6 +41,12 @@ def check_keyup_events(event,ship):
 
     if event.key == pygame.K_LEFT:
         ship.moving_left = False
+
+    if event.key == pygame.K_UP:
+        ship.moving_up = False
+
+    if event.key == pygame.K_DOWN:
+        ship.moving_down = False
 
 
 
