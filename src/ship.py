@@ -1,4 +1,5 @@
 import pygame
+import game_functions as gf
 
 class Ship():
     
@@ -21,7 +22,8 @@ class Ship():
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
 
-        #Movement bool
+        #Actions bool
+        #movement
         self.moving_right = False
         self.moving_left =  False
         self.moving_up = False
