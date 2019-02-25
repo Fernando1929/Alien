@@ -1,6 +1,7 @@
 import sys 
 import pygame
 from bullet import Bullet
+from enemy import Enemy
 
 def check_events(ai_settings,screen,ship,bullets):
     #add the ai_settings to set the boundas of the movement
@@ -37,9 +38,12 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
     elif event.key == pygame.K_SPACE:
         #shoot
         Shoot(ai_settings,screen,ship,bullets)
-       
-      
 
+    elif event.key ==pygame.K_q:
+        #close
+        sys.exit()
+       
+   
 def check_keyup_events(event,ship):
     #respond to release
     #Stops movement
@@ -67,17 +71,33 @@ def Shoot(ai_settings,screen,ship,bullets):
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
 
+def create_army(ai_settings,screen,enemys):
+    #creates enemy
+    enemy = Enemy(ai_settings,screen)
+    enemy_width = enemy.rect.width
 
-def update_screen(ai_settings, screen, ship, enemy ,bullets):
+    #calculate how much can fit in the screen
+    available_space_h = ai_settings.screen_width - (2 * enemy_width)
+    number_enemys_h = int(available_space_h / (2 * enemy_width))
+    
+    for enemy_number in range(number_enemys_h):
+        enemy = Enemy(ai_settings,screen)
+        enemy.x = enemy_width + 2 * enemy_width * enemy_number
+        enemy.rect.x = enemy.x
+        enemys.add(enemy)
+
+
+
+
+def update_screen(ai_settings, screen, ship, enemys ,bullets):
     #makes the movements appear
     #Redraw the screen during each pass through  the loop.
     #Redraw bullets
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
-
     ship.blitme()
-    enemy.blitme()
+    enemys.draw(screen)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 

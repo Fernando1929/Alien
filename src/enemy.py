@@ -1,19 +1,24 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Enemy():
+class Enemy(Sprite):
 
-    def __init__(self, screen):
+    def __init__(self,ai_settings, screen):
         #set the enemy
+        super(Enemy,self).__init__()
         self.screen = screen
+        self.ai_settings = ai_settings
 
         #load image
         self.image = pygame.image.load('./images/alienspace.png')
         self.rect = self.image.get_rect()
-        self.screen_rect = screen.get_rect()
 
         #starts the enemy ship in the senter of the screen
-        self.rect.centerx = self.screen_rect.centerx
-        self.rect.centery = self.screen_rect.centery
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
+
+        #Stores the x position
+        self.x = float(self.rect.x)
 
     def blitme(self):
         #draw the enemy ship
