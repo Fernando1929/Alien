@@ -10,7 +10,7 @@ class Enemy(Sprite):
         self.ai_settings = ai_settings
 
         #load image
-        self.image = pygame.image.load('./images/alienspace.png')
+        self.image = pygame.image.load('/Users/luisquiles/Desktop/Languages/python/pythonCrashCourse/Games/GalGM/src/images/alienspace.png')
         self.rect = self.image.get_rect()
 
         #starts the enemy ship in the senter of the screen

@@ -15,6 +15,7 @@ class Bullet(Sprite):
 
         #stores yPosition
         self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
 
         #color of the bullet
         # make it lightgreen like neon

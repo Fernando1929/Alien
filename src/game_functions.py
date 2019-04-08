@@ -70,6 +70,15 @@ def Shoot(ai_settings,screen,ship,bullets):
     if len(bullets) < ai_settings.bullet_limit:
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
+        
+#verify this method
+def Die(screen,enemys,bullets):
+    for enemy_number in enemys:
+        for bullet_number in bullets: 
+         if enemy_number.x == bullet_number.x and enemy_number.y == bullet_number.y:
+            enemys.remove(enemy_number)
+            bullets.remove(bullet_number)
+
 
 def create_army(ai_settings,screen,enemys):
     #creates enemy
@@ -98,6 +107,7 @@ def update_screen(ai_settings, screen, ship, enemys ,bullets):
         bullet.draw_bullet()
     ship.blitme()
     enemys.draw(screen)
+    Die(screen, enemys, bullets)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 
