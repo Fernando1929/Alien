@@ -19,4 +19,7 @@ class Settings():
 
             #Ship settings
             self.ship_speed_factor = 5
+
+            #Score
+            self.ship_score = 0
             

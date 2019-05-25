@@ -1,12 +1,14 @@
+import sys
 import pygame
-from settings import Settings
+sys.path.append('../Entities/')
+
 from ship import Ship
 from enemy import Enemy
+from settings import Settings
 from pygame.sprite import Group
 import game_functions as gf
 
-from settings import Settings
-from ship import Ship
+
 
 def run_game():
     #Initialize game and create a screen object

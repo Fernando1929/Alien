@@ -1,5 +1,7 @@
 import sys 
 import pygame
+sys.path.append('../Entities')
+
 from bullet import Bullet
 from enemy import Enemy
 
@@ -88,12 +90,12 @@ def create_army(ai_settings,screen,enemys):
     enemy_width = enemy.rect.width
 
     #calculate how much can fit in the screen
-    available_space_h = ai_settings.screen_width - (2 * enemy_width)
-    number_enemys_h = int(available_space_h / (2 * enemy_width))
+    available_space_h = ai_settings.screen_width - (1 * enemy_width)
+    number_enemys_h = int(available_space_h / (1 * enemy_width))
     
     for enemy_number in range(number_enemys_h):
         enemy = Enemy(ai_settings,screen)
-        enemy.x = enemy_width + 2 * enemy_width * enemy_number
+        enemy.x = enemy_width + 1 * enemy_width * enemy_number
         enemy.rect.x = enemy.x
         enemys.add(enemy)
 
