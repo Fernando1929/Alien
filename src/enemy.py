@@ -17,8 +17,9 @@ class Enemy(Sprite):
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 
-        #Stores the x position
+        #Stores the x and y position
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def blitme(self):
         #draw the enemy ship
