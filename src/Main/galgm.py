@@ -16,6 +16,8 @@ def run_game():
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Gal Game")
+    #Add a song to play it in a loop
+    #theme_song = pygame.mixer.music.load('')
 
     #things
     ship = Ship(ai_settings,screen)
