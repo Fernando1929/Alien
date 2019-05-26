@@ -4,6 +4,7 @@ sys.path.append('../Entities')
 
 from bullet import Bullet
 from enemy import Enemy
+from settings import Settings
 
 def check_events(ai_settings,screen,ship,bullets):
     #add the ai_settings to set the boundas of the movement
@@ -73,7 +74,7 @@ def Shoot(ai_settings,screen,ship,bullets):
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
         
-def Die(screen,enemys,bullets,ship):
+def Die(enemys,bullets,ship,ai_settings):
     #Checks for collisions of the ships and the bullets
     #Deletes ships
     for enemy_number in enemys:
@@ -82,7 +83,14 @@ def Die(screen,enemys,bullets,ship):
             if enemy_number.y <= bullet_number.y and enemy_number.y + ship.rect.height >= bullet_number.y:
                 enemys.remove(enemy_number)
                 bullets.remove(bullet_number)
+                ai_settings.ship_score += 20
 
+def Collision(enemys,ship):
+    #Checks if the ship crashes with the enemy
+        for enemy_number in enemys:
+            if enemy_number.x  <= ship.rect.x and enemy_number.x + ship.rect.width+(ship.rect.width/2) >= ship.rect.x:
+                if enemy_number.y <= ship.rect.y and enemy_number.y + ship.rect.height >= ship.rect.y:
+                    sys.exit()
 
 def create_army(ai_settings,screen,enemys):
     #creates enemy
@@ -99,20 +107,28 @@ def create_army(ai_settings,screen,enemys):
         enemy.rect.x = enemy.x
         enemys.add(enemy)
 
-
-
-
 def update_screen(ai_settings, screen, ship, enemys ,bullets):
     #makes the movements appear
     #Redraw the screen during each pass through  the loop.
-    #Redraw bullets
+
+    #Paints the background
     screen.fill(ai_settings.bg_color)
+
+    #Make the score appear
+    nscore = 'Score : '+ str(ai_settings.ship_score) + ' '
+    tscore = ai_settings.font.render(nscore, True, ai_settings.score_text_color,ai_settings.score_bg_color)
+    scoreRect = tscore.get_rect()
+    
+    #Redraw bullets
     for bullet in bullets.sprites():
         bullet.draw_bullet()
-
+    
+    #renders everything
+    screen.blit(tscore,scoreRect)
     ship.blitme()
     enemys.draw(screen)
-    Die(screen, enemys, bullets,ship)
+    Die(enemys, bullets,ship,ai_settings)
+    Collision(enemys,ship)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 
