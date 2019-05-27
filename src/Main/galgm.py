@@ -1,6 +1,7 @@
 import sys
 import pygame
 sys.path.append('../Entities/')
+sys.path.append('../Sound/')
 
 from ship import Ship
 from enemy import Enemy
@@ -11,13 +12,18 @@ import game_functions as gf
 
 
 def run_game():
+
+    #Starts the music
+    #search how it works**
+    #pygame.mixer.init()
+    #pygame.mixer.music.load('UTheme.mp3')
+    #4pygame.mixer.music.play()
+
     #Initialize game and create a screen object
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Gal Game")
-    #Add a song to play it in a loop
-    #theme_song = pygame.mixer.music.load('')
 
     #things
     ship = Ship(ai_settings,screen)
@@ -35,5 +41,6 @@ def run_game():
             ship.update()
             gf.update_bullets(bullets)
             gf.update_screen(ai_settings,screen,ship,enemys,bullets)
+
 
 run_game()
