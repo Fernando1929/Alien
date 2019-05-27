@@ -16,7 +16,7 @@ class Ship():
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
-        #start new Ship at the bottom center of screen
+        #start new ship at the bottom center of screen
         self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.screen_rect.centery
         self.rect.bottom =  self.screen_rect.bottom
@@ -25,17 +25,14 @@ class Ship():
         self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
 
-        #Actions bool
-        #movement
+        #Actions bool - movement
         self.moving_right = False
         self.moving_left =  False
         self.moving_up = False
         self.moving_down = False
 
-
     def update(self):
-        #changes the ship pos.
-        #ask about this if
+        #changes the ship position
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.centerx += self.ai_settings.ship_speed_factor
 
