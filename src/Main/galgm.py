@@ -13,13 +13,8 @@ import game_functions as gf
 
 def run_game():
 
-    #Starts the music
-    #search how it works**
-    #pygame.mixer.init()
-    #pygame.mixer.music.load('UTheme.mp3')
-    #4pygame.mixer.music.play()
-
     #Initialize game and create a screen object
+    #pygame.mixer.pre_init(44100, 16, 2, 4096)
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
@@ -36,11 +31,13 @@ def run_game():
     gf.create_army(ai_settings,screen,enemys)
 
     #Start the main loop for the game
-    while True:
+    while True: 
+            gf.play_music(ai_settings)
             gf.check_events(ai_settings,screen,ship,bullets)
             ship.update()
             gf.update_bullets(bullets)
             gf.update_screen(ai_settings,screen,ship,enemys,bullets)
+          
 
 
 run_game()
