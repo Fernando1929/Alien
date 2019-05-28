@@ -25,10 +25,10 @@ def run_game():
 
     #make a group to store them
     bullets = Group()
-    enemys = Group()
+    enemies = Group()
 
     #creates enemys
-    gf.create_army(ai_settings,screen,enemys)
+    gf.create_army(ai_settings,screen,enemies)
 
     #Start the main loop for the game
     while True: 
@@ -36,7 +36,7 @@ def run_game():
             gf.check_events(ai_settings,screen,ship,bullets)
             ship.update()
             gf.update_bullets(bullets)
-            gf.update_screen(ai_settings,screen,ship,enemys,bullets)
+            gf.update_screen(ai_settings,screen,ship,enemies,bullets)
           
 
 
