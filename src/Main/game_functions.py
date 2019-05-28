@@ -44,9 +44,9 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 
     elif event.key ==pygame.K_q:
         #close
-        sys.exit()
-       
+        sys.exit()   
    
+
 def check_keyup_events(event,ship):
     #respond to release
     #Stops movement
@@ -62,6 +62,14 @@ def check_keyup_events(event,ship):
     if event.key == pygame.K_DOWN:
         ship.moving_down = False
 
+
+def shoot(ai_settings,screen,ship,bullets):
+    #Make bullets
+    if len(bullets) < ai_settings.bullet_limit:
+        new_bullet = Bullet(ai_settings,screen,ship)
+        bullets.add(new_bullet)
+
+
 def update_bullets(bullets):
     bullets.update()
     #Removes bullets
@@ -69,35 +77,57 @@ def update_bullets(bullets):
       if bullet.rect.bottom <=0:
         bullets.remove(bullet)
 
-def shoot(ai_settings,screen,ship,bullets):
-    if len(bullets) < ai_settings.bullet_limit:
-        new_bullet = Bullet(ai_settings,screen,ship)
-        bullets.add(new_bullet)
-        
-def die(enemys,bullets,ship,ai_settings):
-    #Checks for collisions of the ships and the bullets
-    #Deletes ships
-    for enemy_number in enemys:
-        for bullet_number in bullets: 
-         if enemy_number.x  <= bullet_number.x and enemy_number.x + ship.rect.width+(ship.rect.width/2)+5 >= bullet_number.x:
-            if enemy_number.y <= bullet_number.y and enemy_number.y + ship.rect.height >= bullet_number.y:
-                enemys.remove(enemy_number)
-                bullets.remove(bullet_number)
-                ai_settings.ship_score += 20
 
-def collision(enemys,ship,ai_settings):
+def collision(enemies,ship,ai_settings):
     #Checks if the ship crashes with the enemy
     if ai_settings.ship_lives ==0:
         #Add here to throw the game over thing
         sys.exit()
 
     else:
-        for enemy_number in enemys:
+        for enemy_number in enemies:
             if enemy_number.x  <= ship.rect.x and enemy_number.x + ship.rect.width+(ship.rect.width/2) >= ship.rect.x:
                 if enemy_number.y <= ship.rect.y and enemy_number.y + ship.rect.height >= ship.rect.y:
                     if ai_settings.ship_lives >0:
-                        enemys.remove(enemy_number)
+                        enemies.remove(enemy_number)
                         ai_settings.ship_lives -= 1
+
+
+def create_army(ai_settings,screen,enemies):
+    #creates enemy
+    enemy = Enemy(ai_settings,screen)
+    enemy_width = enemy.rect.width
+
+    #calculate how much can fit in the screen
+    available_space_h = ai_settings.screen_width - (1 * enemy_width)
+    ai_settings.num_enemies = int(available_space_h / (1 * enemy_width))
+   
+    for enemy_number in range(ai_settings.num_enemies):
+        enemy = Enemy(ai_settings,screen)
+        enemy.x = (enemy_width * enemy_number) + 20*enemy_number
+        enemy.rect.x = enemy.x
+        enemies.add(enemy)
+
+
+def update_enemies(enemies,ai_settings):
+    #make enemies move
+    enemies.update()
+    for enemy in enemies.copy():
+        if enemy.rect.top > ai_settings.screen_height:
+            enemies.remove(enemy)
+
+
+def die(enemies,bullets,ship,ai_settings):
+    #Checks for collisions of the ships and the bullets
+    #Deletes ships
+    for enemy_number in enemies:
+        for bullet_number in bullets: 
+         if enemy_number.x  <= bullet_number.x and enemy_number.x + ship.rect.width+(ship.rect.width/2)+5 >= bullet_number.x:
+            if enemy_number.y <= bullet_number.y and enemy_number.y + ship.rect.height >= bullet_number.y:
+                enemies.remove(enemy_number)
+                bullets.remove(bullet_number)
+                ai_settings.ship_score += 20
+
 
 def play_music(ai_settings):
     #plays music
@@ -105,22 +135,8 @@ def play_music(ai_settings):
         pygame.mixer.music.play()
         ai_settings.mis_playing = True
 
-def create_army(ai_settings,screen,enemys):
-    #creates enemy
-    enemy = Enemy(ai_settings,screen)
-    enemy_width = enemy.rect.width
 
-    #calculate how much can fit in the screen
-    available_space_h = ai_settings.screen_width - (1 * enemy_width)
-    number_enemys_h = int(available_space_h / (1 * enemy_width))
-    
-    for enemy_number in range(number_enemys_h):
-        enemy = Enemy(ai_settings,screen)
-        enemy.x = enemy_width + 1 * enemy_width * enemy_number
-        enemy.rect.x = enemy.x
-        enemys.add(enemy)
-
-def update_screen(ai_settings, screen, ship, enemys ,bullets):
+def update_screen(ai_settings, screen, ship, enemies ,bullets):
     #makes the movements appear
     #Redraw the screen during each pass through  the loop.
 
@@ -149,9 +165,10 @@ def update_screen(ai_settings, screen, ship, enemys ,bullets):
     screen.blit(textScore,scoreRect)
     screen.blit(textLives,livesRect)
     ship.blitme()
-    enemys.draw(screen)
-    die(enemys, bullets,ship,ai_settings)
-    collision(enemys,ship,ai_settings)
+    enemies.draw(screen)
+    die(enemies, bullets,ship,ai_settings)
+    collision(enemies,ship,ai_settings)
+    update_enemies(enemies,ai_settings)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 

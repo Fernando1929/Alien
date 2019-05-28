@@ -12,7 +12,7 @@ class Settings():
 
             #Bullet settings
             if platform == "win32":
-                self.bullet_speed_factor = 5
+                self.bullet_speed_factor = 1
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
                 self.bullet_speed_factor = 10
             
@@ -48,8 +48,13 @@ class Settings():
             
             self.ship_lives = 3
 
-            #Enemys lives
+            #Enemy settings
             self.enemy_lives = 1
+            self.num_enemies = 0
+            if platform == "win32":
+                self.enemy_speed = 0.10
+            elif platform == "darwin" or platform == "linux" or platform == "linux2" :
+                self.enemy_speed = 10
 
             #Boss lives - lvl
             self.boss_lives_l1 = 3
@@ -63,6 +68,5 @@ class Settings():
             #Music Settings 
             self.mis_playing = False
             pygame.mixer.music.load('../Sound/nature.wav')
-           
 
             
