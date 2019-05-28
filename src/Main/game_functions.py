@@ -40,7 +40,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 
     elif event.key == pygame.K_SPACE:
         #shoot
-        Shoot(ai_settings,screen,ship,bullets)
+        shoot(ai_settings,screen,ship,bullets)
 
     elif event.key ==pygame.K_q:
         #close
@@ -69,12 +69,12 @@ def update_bullets(bullets):
       if bullet.rect.bottom <=0:
         bullets.remove(bullet)
 
-def Shoot(ai_settings,screen,ship,bullets):
+def shoot(ai_settings,screen,ship,bullets):
     if len(bullets) < ai_settings.bullet_limit:
         new_bullet = Bullet(ai_settings,screen,ship)
         bullets.add(new_bullet)
         
-def Die(enemys,bullets,ship,ai_settings):
+def die(enemys,bullets,ship,ai_settings):
     #Checks for collisions of the ships and the bullets
     #Deletes ships
     for enemy_number in enemys:
@@ -85,9 +85,8 @@ def Die(enemys,bullets,ship,ai_settings):
                 bullets.remove(bullet_number)
                 ai_settings.ship_score += 20
 
-def Collision(enemys,ship,ai_settings):
+def collision(enemys,ship,ai_settings):
     #Checks if the ship crashes with the enemy
-
     if ai_settings.ship_lives ==0:
         #Add here to throw the game over thing
         sys.exit()
@@ -99,8 +98,13 @@ def Collision(enemys,ship,ai_settings):
                     if ai_settings.ship_lives >0:
                         enemys.remove(enemy_number)
                         ai_settings.ship_lives -= 1
-                        print(ai_settings.ship_lives)
-                        
+
+def play_music(ai_settings):
+    #plays music
+    if ai_settings.mis_playing == False:
+        pygame.mixer.music.play()
+        ai_settings.mis_playing = True
+
 def create_army(ai_settings,screen,enemys):
     #creates enemy
     enemy = Enemy(ai_settings,screen)
@@ -127,11 +131,11 @@ def update_screen(ai_settings, screen, ship, enemys ,bullets):
     numScore = 'Score : '+ str(ai_settings.ship_score) + ' '
     textScore = ai_settings.sFont.render(numScore, True, ai_settings.score_text_color,ai_settings.score_bg_color)
     scoreRect = textScore.get_rect()
-    scoreRect.x = ai_settings.score_x+200
+    scoreRect.x = ai_settings.score_x
     scoreRect.y = ai_settings.score_y
 
     #Make ship lives appear
-    numLives = 'lives:'+ str(ai_settings.ship_lives) + ' '
+    numLives = 'lives : '+ str(ai_settings.ship_lives) + ' '
     textLives = ai_settings.lFont.render(numLives,True,ai_settings.lives_text_color,ai_settings.lives_bg_color)
     livesRect = textLives.get_rect()
     livesRect.x = ai_settings.lives_x
@@ -146,8 +150,8 @@ def update_screen(ai_settings, screen, ship, enemys ,bullets):
     screen.blit(textLives,livesRect)
     ship.blitme()
     enemys.draw(screen)
-    Die(enemys, bullets,ship,ai_settings)
-    Collision(enemys,ship,ai_settings)
+    die(enemys, bullets,ship,ai_settings)
+    collision(enemys,ship,ai_settings)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 
