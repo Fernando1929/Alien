@@ -20,6 +20,12 @@ class Enemy(Sprite):
         #Stores the x and y position
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
+        self.speed_factor = ai_settings.enemy_speed
+
+    def update(self):
+        #Makes the enemy go down
+        self.y += self.speed_factor
+        self.rect.y = self.y
 
     def blitme(self):
         #draw the enemy ship
