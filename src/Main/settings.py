@@ -1,4 +1,7 @@
+import sys
 import pygame
+from sys import platform
+sys.path.append('../Sound')
 
 class Settings():
     
@@ -8,7 +11,11 @@ class Settings():
             self.screen_height = 600
 
             #Bullet settings
-            self.bullet_speed_factor = 10
+            if platform == "win32":
+                self.bullet_speed_factor = 5
+            elif platform == "darwin" or platform == "linux" or platform == "linux2" :
+                self.bullet_speed_factor = 10
+            
             self.bullet_width = 3
             self.bullet_height = 10
             self.bullet_color = (60,60,60)
@@ -25,7 +32,7 @@ class Settings():
             self.lFont = pygame.font.Font('freesansbold.ttf',18)
             self.lives_bg_color = (173,216,230)
             self.lives_text_color = (255,255,255)
-            self.lives_x = 500
+            self.lives_x = 530
             self.lives_y = 5
 
             
@@ -33,7 +40,12 @@ class Settings():
             self.bg_color = (173,216,230)
 
             #Ship settings
-            self.ship_speed_factor = 5
+            #checks operating systems
+            if platform == "win32":
+                self.ship_speed_factor = 0.5
+            elif platform == "darwin" or platform == "linux" or platform == "linux2" :
+                self.ship_speed_factor = 5
+            
             self.ship_lives = 3
 
             #Enemys lives
@@ -47,5 +59,10 @@ class Settings():
 
             #Score
             self.ship_score = 0
+
+            #Music Settings 
+            self.mis_playing = False
+            pygame.mixer.music.load('../Sound/nature.wav')
+           
 
             
