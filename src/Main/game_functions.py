@@ -1,5 +1,7 @@
 import sys 
 import pygame
+import random
+import array
 sys.path.append('../Entities')
 
 from bullet import Bullet
@@ -42,8 +44,8 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
         #shoot
         shoot(ai_settings,screen,ship,bullets)
 
-    elif event.key ==pygame.K_q:
-        #close
+    elif event.key == pygame.K_q:
+        #close - debug key
         sys.exit()   
    
 
@@ -100,8 +102,8 @@ def create_army(ai_settings,screen,enemies):
 
     #calculate how much can fit in the screen
     available_space_h = ai_settings.screen_width - (1 * enemy_width)
-    ai_settings.num_enemies = int(available_space_h / (1 * enemy_width))
-   
+    ai_settings.num_enemies = int(available_space_h / (1 * enemy_width))-random.randint(1,4)
+    ####################### Needs more work
     for enemy_number in range(ai_settings.num_enemies):
         enemy = Enemy(ai_settings,screen)
         enemy.x = (enemy_width * enemy_number) + 20*enemy_number
@@ -145,14 +147,14 @@ def update_screen(ai_settings, screen, ship, enemies ,bullets):
 
     #Make the score appear
     numScore = 'Score : '+ str(ai_settings.ship_score) + ' '
-    textScore = ai_settings.sFont.render(numScore, True, ai_settings.score_text_color,ai_settings.score_bg_color)
+    textScore = ai_settings.sFont.render(numScore, True, ai_settings.text_color,ai_settings.bg_color)
     scoreRect = textScore.get_rect()
     scoreRect.x = ai_settings.score_x
     scoreRect.y = ai_settings.score_y
 
     #Make ship lives appear
     numLives = 'lives : '+ str(ai_settings.ship_lives) + ' '
-    textLives = ai_settings.lFont.render(numLives,True,ai_settings.lives_text_color,ai_settings.lives_bg_color)
+    textLives = ai_settings.lFont.render(numLives,True,ai_settings.text_color,ai_settings.bg_color)
     livesRect = textLives.get_rect()
     livesRect.x = ai_settings.lives_x
     livesRect.y = ai_settings.lives_y
@@ -169,6 +171,10 @@ def update_screen(ai_settings, screen, ship, enemies ,bullets):
     die(enemies, bullets,ship,ai_settings)
     collision(enemies,ship,ai_settings)
     update_enemies(enemies,ai_settings)
+
+    #make constant enemies
+    if len(enemies) == 0:
+        create_army(ai_settings,screen,enemies)
 
     #make the most recently drawn screen visible.
     pygame.display.flip() 

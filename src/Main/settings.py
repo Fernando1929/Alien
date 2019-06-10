@@ -18,26 +18,26 @@ class Settings():
             
             self.bullet_width = 3
             self.bullet_height = 10
-            self.bullet_color = (60,60,60)
+            #self.bullet_color = (60,60,60)
+            self.bullet_color = (255,255,255)
             self.bullet_limit = 4
 
             #Score settings
             self.sFont = pygame.font.Font('freesansbold.ttf',18)
-            self.score_bg_color = (173,216,230)
-            self.score_text_color = (255,255,255)
             self.score_x = 0
             self.score_y = 5
             
             #Lives counter
             self.lFont = pygame.font.Font('freesansbold.ttf',18)
-            self.lives_bg_color = (173,216,230)
-            self.lives_text_color = (255,255,255)
             self.lives_x = 530
             self.lives_y = 5
 
-            
-            #Background Color :lightblue color
-            self.bg_color = (173,216,230)
+            #Color Settings
+            #background
+            #lightblue  self.lives_text_color = (255,255,255)
+            self.bg_color = (0,0,0)
+            #text
+            self.text_color = (255,255,255)
 
             #Ship settings
             #checks operating systems
@@ -45,7 +45,6 @@ class Settings():
                 self.ship_speed_factor = 0.5
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
                 self.ship_speed_factor = 5
-            
             self.ship_lives = 3
 
             #Enemy settings
