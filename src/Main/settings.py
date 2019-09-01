@@ -42,7 +42,7 @@ class Settings():
             #Ship settings
             #checks operating systems
             if platform == "win32":
-                self.ship_speed_factor = 0.5
+                self.ship_speed_factor = 0.4
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
                 self.ship_speed_factor = 5
             self.ship_lives = 3
@@ -66,6 +66,5 @@ class Settings():
 
             #Music Settings 
             self.mis_playing = False
-            pygame.mixer.music.load('../Sound/nature.wav')
-
-            
+            pygame.mixer.music.load('../Sound/454884__razor5__alien-song.mp3')
+            #pygame.mixer.music.load('../Sound/epic-orchestra-loop.wav') (Unused code for testing)

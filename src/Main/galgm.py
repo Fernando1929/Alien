@@ -14,13 +14,13 @@ import game_functions as gf
 def run_game():
 
     #Initialize game and create a screen object
-    #pygame.mixer.pre_init(44100, 16, 2, 4096)
+    #pygame.mixer.pre_init(44100, 16, 2, 4096) (Unused code for testing)
     pygame.init()
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Gal Game")
 
-    #things
+    #Entity
     ship = Ship(ai_settings,screen)
 
     #make a group to store them
