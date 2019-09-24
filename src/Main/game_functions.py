@@ -46,7 +46,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
 
     elif event.key == pygame.K_q:
         #close - debug key
-        sys.exit()   
+        sys.exit()    
    
 
 def check_keyup_events(event,ship):
@@ -82,9 +82,9 @@ def update_bullets(bullets):
 
 def collision(enemies,ship,ai_settings):
     #Checks if the ship crashes with the enemy
-    if ai_settings.ship_lives ==0:
+    if ai_settings.ship_lives == 0:
         #Add here to throw the game over thing
-        sys.exit()
+        ai_settings.retry = ""
 
     else:
         for enemy_number in enemies:
@@ -147,14 +147,14 @@ def update_screen(ai_settings, screen, ship, enemies ,bullets):
 
     #Make the score appear
     numScore = 'Score : '+ str(ai_settings.ship_score) + ' '
-    textScore = ai_settings.sFont.render(numScore, True, ai_settings.text_color,ai_settings.bg_color)
+    textScore = ai_settings.scoreFont.render(numScore, True, ai_settings.text_color,ai_settings.bg_color)
     scoreRect = textScore.get_rect()
     scoreRect.x = ai_settings.score_x
     scoreRect.y = ai_settings.score_y
 
     #Make ship lives appear
     numLives = 'lives : '+ str(ai_settings.ship_lives) + ' '
-    textLives = ai_settings.lFont.render(numLives,True,ai_settings.text_color,ai_settings.bg_color)
+    textLives = ai_settings.livesFont.render(numLives,True,ai_settings.text_color,ai_settings.bg_color)
     livesRect = textLives.get_rect()
     livesRect.x = ai_settings.lives_x
     livesRect.y = ai_settings.lives_y

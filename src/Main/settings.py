@@ -5,12 +5,18 @@ sys.path.append('../Sound')
 
 class Settings():
     
-    def __init__(self):
+    def __init__(self):\
+
+            #Game
+            self.retry = False
+            self.option = "" ##unused var
+
+
             #Dimetions
             self.screen_width = 600
             self.screen_height = 600
 
-            #Bullet settings
+            #Bullet settings according with OS
             if platform == "win32":
                 self.bullet_speed_factor = 1
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
@@ -23,21 +29,21 @@ class Settings():
             self.bullet_limit = 4
 
             #Score settings
-            self.sFont = pygame.font.Font('freesansbold.ttf',18)
+            self.scoreFont = pygame.font.Font('freesansbold.ttf',18)
             self.score_x = 0
             self.score_y = 5
             
             #Lives counter
-            self.lFont = pygame.font.Font('freesansbold.ttf',18)
+            self.livesFont = pygame.font.Font('freesansbold.ttf',18)
             self.lives_x = 530
             self.lives_y = 5
 
             #Color Settings
             #background
-            #lightblue  self.lives_text_color = (255,255,255)
             self.bg_color = (0,0,0)
             #text
             self.text_color = (255,255,255)
+            self.text_font = pygame.font.Font('freesansbold.ttf',18)
 
             #Ship settings
             #checks operating systems

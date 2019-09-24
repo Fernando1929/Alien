@@ -10,6 +10,7 @@ class Ship():
         #init the ship and set starting position
         self.screen = screen
         self.ai_settings = ai_settings
+        self.is_dead = False ##unused var
 
         #load the image
         self.image = pygame.image.load('../images/ship.png')
