@@ -8,9 +8,8 @@ class Settings():
     def __init__(self):\
 
             #Game
-            self.retry = False
-            self.option = "" ##unused var
-
+            self.retry = None
+            self.option = ""
 
             #Dimetions
             self.screen_width = 600
@@ -50,16 +49,18 @@ class Settings():
             if platform == "win32":
                 self.ship_speed_factor = 0.4
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
-                self.ship_speed_factor = 5
+                self.ship_speed_factor = 6
+            
             self.ship_lives = 3
 
             #Enemy settings
             self.enemy_lives = 1
             self.num_enemies = 0
+
             if platform == "win32":
                 self.enemy_speed = 0.10
             elif platform == "darwin" or platform == "linux" or platform == "linux2" :
-                self.enemy_speed = 10
+                self.enemy_speed = 8
 
             #Boss lives - lvl
             self.boss_lives_l1 = 3

@@ -2,11 +2,13 @@ import sys
 import pygame
 import random
 import array
+
 sys.path.append('../Entities')
 
 from bullet import Bullet
 from enemy import Enemy
 from settings import Settings
+
 
 def check_events(ai_settings,screen,ship,bullets):
     #add the ai_settings to set the boundas of the movement
@@ -14,7 +16,7 @@ def check_events(ai_settings,screen,ship,bullets):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
+                
             elif event.type == pygame.KEYDOWN:
                 check_keydown_events(event,ai_settings,screen,ship,bullets)
 
@@ -48,6 +50,8 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
         #close - debug key
         sys.exit()    
    
+    elif event.key == pygame.K_ESCAPE:
+        ai_settings.option = "Pause"
 
 def check_keyup_events(event,ship):
     #respond to release
@@ -82,11 +86,6 @@ def update_bullets(bullets):
 
 def collision(enemies,ship,ai_settings):
     #Checks if the ship crashes with the enemy
-    if ai_settings.ship_lives == 0:
-        #Add here to throw the game over thing
-        ai_settings.retry = ""
-
-    else:
         for enemy_number in enemies:
             if enemy_number.x  <= ship.rect.x and enemy_number.x + ship.rect.width+(ship.rect.width/2) >= ship.rect.x:
                 if enemy_number.y <= ship.rect.y and enemy_number.y + ship.rect.height >= ship.rect.y:
@@ -118,6 +117,13 @@ def update_enemies(enemies,ai_settings):
         if enemy.rect.top > ai_settings.screen_height:
             enemies.remove(enemy)
 
+def restart(ai_settings):
+    #reset everything
+    ai_settings.ship_lives = 3
+    ai_settings.num_enemies = 0
+    ai_settings.ship_score = 0
+    ai_settings.retry = None
+    ai_settings.option = ""
 
 def die(enemies,bullets,ship,ai_settings):
     #Checks for collisions of the ships and the bullets

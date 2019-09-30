@@ -2,7 +2,7 @@ import sys
 import pygame
     
 
-def mainMenu(ai_settings, screen):
+def pauseMenu(ai_settings, screen):
         screen.fill(ai_settings.bg_color)
 
         textm = 'Main Menu'
@@ -17,13 +17,13 @@ def mainMenu(ai_settings, screen):
         t1Rect.x = 300
         t1Rect.y = 100
 
-        texts = '2.Score'
+        texts = 'Score:'+(str)(ai_settings.ship_score)
         text2 = ai_settings.text_font.render(texts, True, ai_settings.text_color,ai_settings.bg_color)
         t2Rect = text2.get_rect()
         t2Rect.x = 300
-        t2Rect.y = 200
+        t2Rect.y = 50
 
-        textq = '3.Quit'
+        textq = '2.Quit'
         text3 = ai_settings.text_font.render(textq, True, ai_settings.text_color,ai_settings.bg_color)
         t3Rect = text3.get_rect()
         t3Rect.x = 300
@@ -37,12 +37,12 @@ def mainMenu(ai_settings, screen):
 
         pygame.display.flip() 
 
-def choiceMenu(ai_settings):
+def optionMenu(ai_settings):
     for event in pygame.event.get():
-    
+        
         if event.type == pygame.QUIT:
                 sys.exit()
-        
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             ai_settings.option = ""
 

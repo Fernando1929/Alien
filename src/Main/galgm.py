@@ -1,16 +1,18 @@
 import sys
 import pygame
-sys.path.append('../Entities/')
-sys.path.append('../Sound/')
+import game_functions as gf
+import menu_state as mn
+import score_handler as sc
+import death_state as dt
+import pause_state as pt
 
 from ship import Ship
 from enemy import Enemy
 from settings import Settings
 from pygame.sprite import Group
 
-import game_functions as gf
-import menu_state as mn
-
+sys.path.append('../Entities/')
+sys.path.append('../Sound/')
 
 def run_game():
 
@@ -32,21 +34,35 @@ def run_game():
     gf.create_army(ai_settings,screen,enemies)
 
     #Start the main loop for the game
-    while (not ship.is_dead): 
+    while (ai_settings.retry == None): 
 
         if(ai_settings.option == "Play"):
+
                 gf.play_music(ai_settings)
                 gf.check_events(ai_settings,screen,ship,bullets)
                 ship.update()
                 gf.update_bullets(bullets)
                 gf.update_screen(ai_settings,screen,ship,enemies,bullets)
-                        
+            
+                if ai_settings.ship_lives == 0:
+                    ai_settings.option = "Death"
 
-                if ai_settings.ship_lives == 0 and ai_settings.retry:
-                    ship.is_dead = True
+        elif(ai_settings.option == "Score"):
+            sc.showScores(ai_settings,screen)
+            sc.scoreChoice(ai_settings)
 
-                if ai_settings.ship_lives == 0 and (not ai_settings.retry):
-                    sys.exit()
+        elif(ai_settings.option == "Restart"):
+            gf.restart(ai_settings)
+            ai_settings.option = "Play"
+
+        elif(ai_settings.option == "Death"):
+            #sc.readScores(ai_settings)
+            dt.deathMenu(ai_settings,screen)
+            dt.deathChoice(ai_settings)
+
+        elif(ai_settings.option == "Pause"):
+            pt.pauseMenu(ai_settings,screen)
+            pt.optionMenu(ai_settings)
 
         else:
             mn.mainMenu(ai_settings, screen)
