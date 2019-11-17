@@ -1,6 +1,12 @@
 import sys
 import pygame
 import game_functions as gf
+
+sys.path.append('../Entities/')
+sys.path.append('../Sound/')
+sys.path.append('../States/')
+sys.path.append('../SCManager/')
+
 import menu_state as mn
 import score_handler as sc
 import death_state as dt
@@ -11,8 +17,8 @@ from enemy import Enemy
 from settings import Settings
 from pygame.sprite import Group
 
-sys.path.append('../Entities/')
-sys.path.append('../Sound/')
+
+
 
 def run_game():
 
@@ -34,7 +40,7 @@ def run_game():
     gf.create_army(ai_settings,screen,enemies)
 
     #Start the main loop for the game
-    while (ai_settings.retry == None): 
+    while (ai_settings.isRunning == True): 
 
         if(ai_settings.option == "Play"):
 
@@ -56,6 +62,7 @@ def run_game():
             ai_settings.option = "Play"
 
         elif(ai_settings.option == "Death"):
+            #Future testing
             #sc.readScores(ai_settings)
             dt.deathMenu(ai_settings,screen)
             dt.deathChoice(ai_settings)

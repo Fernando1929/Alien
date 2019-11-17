@@ -2,11 +2,11 @@ import sys
 import pygame
     
 
-def pauseMenu(ai_settings, screen):
+def mainMenu(ai_settings, screen):
         screen.fill(ai_settings.bg_color)
 
-        textm = 'Main Menu'
-        text4 = ai_settings.text_font.render(textm,True,ai_settings.text_color,ai_settings.bg_color)
+        title = 'Main Menu'
+        text4 = ai_settings.text_font.render(title,True,ai_settings.text_color,ai_settings.bg_color)
         t4Rect = text4.get_rect()
         t4Rect.x = 250
         t4Rect.y = 20
@@ -17,13 +17,13 @@ def pauseMenu(ai_settings, screen):
         t1Rect.x = 300
         t1Rect.y = 100
 
-        texts = 'Score:'+(str)(ai_settings.ship_score)
+        texts = '2.Score'
         text2 = ai_settings.text_font.render(texts, True, ai_settings.text_color,ai_settings.bg_color)
         t2Rect = text2.get_rect()
         t2Rect.x = 300
-        t2Rect.y = 50
+        t2Rect.y = 200
 
-        textq = '2.Quit'
+        textq = '3.Quit'
         text3 = ai_settings.text_font.render(textq, True, ai_settings.text_color,ai_settings.bg_color)
         t3Rect = text3.get_rect()
         t3Rect.x = 300
@@ -37,12 +37,12 @@ def pauseMenu(ai_settings, screen):
 
         pygame.display.flip() 
 
-def optionMenu(ai_settings):
+def choiceMenu(ai_settings):
     for event in pygame.event.get():
-        
+    
         if event.type == pygame.QUIT:
                 sys.exit()
-
+        
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             ai_settings.option = ""
 
@@ -53,7 +53,7 @@ def optionMenu(ai_settings):
             ai_settings.option = "Score"
 
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_3:
-            ai_settings.retry = False
+            ai_settings.isRunning = False
           
         
 

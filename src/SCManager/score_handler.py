@@ -5,7 +5,7 @@ import pygame
 from settings import Settings
 from tinydb import TinyDB, Query
 
-db = TinyDB('../Main/scores.json')
+db = TinyDB('../SCManager/scores.json')
 User = Query()
 
 ##verify all of it 

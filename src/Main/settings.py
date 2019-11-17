@@ -8,7 +8,7 @@ class Settings():
     def __init__(self):\
 
             #Game
-            self.retry = None
+            self.isRunning = True
             self.option = ""
 
             #Dimetions
