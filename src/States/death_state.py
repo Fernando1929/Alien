@@ -54,7 +54,7 @@ def deathChoice(ai_settings):
             ai_settings.option = "Restart"
             
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
-            ai_settings.retry = False
+            ai_settings.option = "Shut Down"
           
         
 
