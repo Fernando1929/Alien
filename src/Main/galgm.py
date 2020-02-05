@@ -61,6 +61,9 @@ def run_game():
             gf.restart(ai_settings)
             ai_settings.option = "Play"
 
+        elif(ai_settings.option == "Shut Down"):
+            sys.exit()
+
         elif(ai_settings.option == "Death"):
             #Future testing
             #sc.readScores(ai_settings)

@@ -5,7 +5,7 @@ sys.path.append('../Sound')
 
 class Settings():
     
-    def __init__(self):\
+    def __init__(self):
 
             #Game
             self.isRunning = True
